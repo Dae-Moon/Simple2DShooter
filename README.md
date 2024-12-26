@@ -1,36 +1,36 @@
 # Simple 2D shooter
-Has more game mechanics.\
+Has more game mechanics.
 
 
 ## Player
-- 3 weapons (gun/shotgun/knife)\
-- W.A.S.D movement\
-- Left mouse button for attack\
-- Health and running (soon)\
-- Knife effect and perfect attack\
+- 3 weapons (gun/shotgun/knife)
+- W.A.S.D movement
+- Left mouse button for attack
+- Health and running (soon)
+- Knife effect and perfect attack
 
 ## Weapon
-- Knock back\
-- Damage scaling\
-- Cooldown\
-- Bullet speed\
-- Bullet size\
+- Knock back
+- Damage scaling
+- Cooldown
+- Bullet speed
+- Bullet size
 
 ## Enemy
-- Health bar\
-- Assault\
-- Custom spawn\
+- Health bar
+- Assault
+- Custom spawn
 
 ## GUI
-- statistics and information (FPS/frame time/kills per weapon/enemy count)\
+- statistics and information (FPS/frame time/kills per weapon/enemy count)
 
 # Requirement
-[Visual Studio 2022](https://visualstudio.microsoft.com/ru/vs/)\
-[NET 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) or you can change it to 8.0.\
+[Visual Studio 2022](https://visualstudio.microsoft.com/ru/vs/)
+[NET 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) or you can change it to 8.0.
 
 # Usage
-Download from [releases](https://github.com/Dae-Moon/Simple2DShooter/releases) or compile yourself.\
-Run Simple2DShooter.exe.\
+Download from [releases](https://github.com/Dae-Moon/Simple2DShooter/releases) or compile yourself.
+Run Simple2DShooter.exe.
 
 ## Window
 <p align="center">
