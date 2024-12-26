@@ -30,7 +30,7 @@ Has more game mechanics.
 
 # Usage
 Download from [releases](https://github.com/Dae-Moon/Simple2DShooter/releases) or compile yourself.\
-Run Simple2DShooter.exe
+Run **Simple2DShooter.exe**
 
 ## Window
 <p align="center">
