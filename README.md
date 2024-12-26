@@ -25,7 +25,7 @@ Has more game mechanics.
 - statistics and information (FPS/frame time/kills per weapon/enemy count)
 
 # Requirement
-[Visual Studio 2022](https://visualstudio.microsoft.com/ru/vs/).
+[Visual Studio 2022](https://visualstudio.microsoft.com/ru/vs).
 [NET 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) or you can change it to 8.0.
 
 # Usage
