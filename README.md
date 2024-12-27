@@ -22,7 +22,10 @@ Has more game mechanics.
 - Custom spawn
 
 ## GUI
-- statistics and information (FPS/frame time/kills per weapon/enemy count)
+- FPS (rendering), frame time (engine)
+- Kill counter for each weapon
+- Enemy counter
+- Weapon tab
 
 # Requirement
 [Visual Studio 2022](https://visualstudio.microsoft.com/ru/vs).\
