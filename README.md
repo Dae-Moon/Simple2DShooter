@@ -1,6 +1,5 @@
 # Simple 2D shooter
-Has more game mechanics.
-
+It is a single-player shooter created in C# with bots in two-dimensional space, has several game mechanics.
 
 ## Player
 - 3 weapons (gun/shotgun/knife)
