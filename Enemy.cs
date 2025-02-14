@@ -20,8 +20,13 @@ internal class Enemy : GameComponent
 
         if (dir.Length() <= Player.LocalPlayer.radius + radius)
         {
-            Destroy();
-            return;
+            bool oneShot = MathUtilities.random.Next(0, 100) < 5;
+            if (oneShot)
+                Player.LocalPlayer.health -= 100;
+            else
+                Player.LocalPlayer.health -= MathUtilities.random.Next(5, 35);
+
+            _knockback = 250f;
         }
 
         if (_knockback > 1f)
@@ -50,8 +55,12 @@ internal class Enemy : GameComponent
 
     public bool TakeDamage(Weapon weapon)
     {
-        _health -= weapon.damageDistance <= 0 ? weapon.damage : Convert.ToInt32(weapon.damage / (Vector2.Distance(Player.LocalPlayer.position, position) / weapon.damageDistance));
+        var damageCount = weapon.damageDistance <= 0 ? weapon.damage : Convert.ToInt32(weapon.damage / (Vector2.Distance(Player.LocalPlayer.position, position) / weapon.damageDistance));
+
+        _health -= damageCount;
         _knockback = weapon.knockback;
+
+        new AlphaText(10f, (-damageCount).ToString(), position, Color.FromArgb(255, Math.Clamp(255 - (int)(damageCount * 2.55f), 0, 255), 0));
 
         if (_health <= 0)
         {
