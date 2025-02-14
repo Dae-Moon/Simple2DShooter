@@ -3,12 +3,13 @@ namespace Simple2DShooter;
 public partial class Window : Form, IInputable
 {
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public static Window Instance { get; private set; } = null;
+    public static Window? Instance { get; private set; } = null;
 
     private readonly Thread _updateThread;
     private DateTime _lastUpdateTime = DateTime.Now;
     private DateTime _lastScreenTime = DateTime.Now;
-    private bool isRunning = false;
+    
+    public bool isRunning = false;
 
     EnemySpawner _spawner = new();
     Player _player = new()
@@ -27,9 +28,11 @@ public partial class Window : Form, IInputable
         _updateThread = new(Update);
     }
 
-    private void Update()
+    private new void Update()
     {
-        while (isRunning)
+        int exitType = 0;
+
+        while (true)
         {
             Thread.Sleep(1);
 
@@ -37,12 +40,38 @@ public partial class Window : Form, IInputable
             IResources.frameTime = (float)(now - _lastUpdateTime).TotalSeconds;
             _lastUpdateTime = now;
 
-            foreach (var comp in IResources.gameComponents.ToList())
-                comp?.Update();
-            
+            if (isRunning)
+            {
+                foreach (var comp in IResources.gameComponents.ToList())
+                    comp?.Update();
+            }
+            else if (Instance != null)
+            {
+                if (Input.IsKey(Keys.R))
+                {
+                    exitType = 1;
+                    break;
+                }
+                else if (Input.IsKey(Keys.Escape))
+                {
+                    exitType = 0;
+                    break;
+                }
+            }
+            else
+            {
+                exitType = -1;
+                break;
+            }
+
             //Invoke(() => { IInputable.mousePosition = PointToClient(Cursor.Position); });
             Input.Update();
         }
+
+        if (exitType == 0)
+            Application.Exit();
+        else if (exitType == 1)
+            Application.Restart();
     }
 
     protected override void OnLoad(EventArgs e)
@@ -60,6 +89,7 @@ public partial class Window : Form, IInputable
     protected override void OnClosing(CancelEventArgs e)
     {
         isRunning = false;
+        Instance = null;
         base.OnClosing(e);
     }
 
@@ -70,14 +100,16 @@ public partial class Window : Form, IInputable
         _lastScreenTime = now;
 
         e.Graphics.Clear(Color.Black);
-
         foreach (var comp in IResources.gameComponents.ToList())
             comp?.Draw(e.Graphics);
         
         e.Graphics.DrawString($"{(int)(1f / frameTime)} FPS", Font, Brushes.White, 10, 10);
         e.Graphics.DrawString($"Frame time: {IResources.frameTime}", Font, Brushes.White, 10f, 10f + Font.Size * 1.5f);
-        
+
         IInputable.mousePosition = PointToClient(Cursor.Position);
+
+        if (!isRunning)
+            e.Graphics.DrawString("[R] Restart\n[Esc] Exit", new Font(Font.FontFamily, 25f), Brushes.White, (ClientSize.ToVector() / 2).ToPointF(), new() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
 
         Invalidate();
         base.OnPaint(e);
