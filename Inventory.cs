@@ -10,9 +10,8 @@ internal class Inventory : GameComponent
 
     public Inventory()
     {
-        _weapons.Add(new()
+        _weapons.Add(new Weapons.Gun()
         {
-            weaponType = WeaponType.Gun,
             cooldown = 0.1f,
             knockback = 75f,
             bulletSpeed = 2000f,
@@ -21,9 +20,8 @@ internal class Inventory : GameComponent
             damage = 15
         });
 
-        _weapons.Add(new()
+        _weapons.Add(new Weapons.Shotgun()
         {
-            weaponType = WeaponType.Shotgun,
             cooldown = 1f,
             knockback = 250f,
             bulletSpeed = 2000f,
@@ -32,9 +30,8 @@ internal class Inventory : GameComponent
             damage = 75
         });
 
-        _weapons.Add(new()
+        _weapons.Add(new Weapons.Knife()
         {
-            weaponType = WeaponType.Knife,
             cooldown = 0.5f,
             knockback = 0f,
             bulletSpeed = 1000f,
@@ -49,17 +46,17 @@ internal class Inventory : GameComponent
 
     public override void Update()
     {
-        if (CurrentWeapon.weaponType != WeaponType.Gun && Input.IsKeyDown(Keys.D1))
+        if (CurrentWeapon is not Weapons.Gun && Input.IsKeyDown(Keys.D1))
         {
             _oldWeapon = CurrentWeapon;
             CurrentWeapon = _weapons[0];
         }
-        if (CurrentWeapon.weaponType != WeaponType.Shotgun && Input.IsKeyDown(Keys.D2))
+        if (CurrentWeapon is not Weapons.Shotgun && Input.IsKeyDown(Keys.D2))
         {
             _oldWeapon = CurrentWeapon;
             CurrentWeapon = _weapons[1];
         }
-        if (CurrentWeapon.weaponType != WeaponType.Knife && Input.IsKeyDown(Keys.D3))
+        if (CurrentWeapon is not Weapons.Knife && Input.IsKeyDown(Keys.D3))
         {
             _oldWeapon = CurrentWeapon;
             CurrentWeapon = _weapons[2];
@@ -75,12 +72,12 @@ internal class Inventory : GameComponent
 
     public override void Draw(Graphics graphics)
     {
-        var y = Window.Instance.Bounds.Height - 65f;
-        graphics.DrawString("[3] KNIFE", Window.Instance.Font, CurrentWeapon.weaponType == WeaponType.Knife ? Brushes.White : Brushes.DarkGray, 10f, y);
+        var y = Window.Instance!.Bounds.Height - 65f;
+        graphics.DrawString("[3] KNIFE", Window.Instance.Font, CurrentWeapon is Weapons.Knife ? Brushes.White : Brushes.DarkGray, 10f, y);
         y -= Window.Instance.Font.Size * 1.5f;
-        graphics.DrawString("[2] SHOTGUN", Window.Instance.Font, CurrentWeapon.weaponType == WeaponType.Shotgun ? Brushes.White : Brushes.DarkGray, 10f, y);
+        graphics.DrawString("[2] SHOTGUN", Window.Instance.Font, CurrentWeapon is Weapons.Shotgun ? Brushes.White : Brushes.DarkGray, 10f, y);
         y -= Window.Instance.Font.Size * 1.5f;
-        graphics.DrawString("[1] GUN", Window.Instance.Font, CurrentWeapon.weaponType == WeaponType.Gun ? Brushes.White : Brushes.DarkGray, 10f, y);
+        graphics.DrawString("[1] GUN", Window.Instance.Font, CurrentWeapon is Weapons.Gun ? Brushes.White : Brushes.DarkGray, 10f, y);
         y -= Window.Instance.Font.Size * 1.5f;
         graphics.DrawString("[Q] Switch", Window.Instance.Font, Brushes.White, 10f, y);
 
