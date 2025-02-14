@@ -36,6 +36,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 561);
             DoubleBuffered = true;
+            MinimumSize = new Size(600, 400);
             Name = "Window";
             ShowIcon = false;
             Text = "Simple 2D Shooter";
