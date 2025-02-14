@@ -10,7 +10,7 @@ internal class EnemySpawner : GameComponent
 
     public EnemySpawner()
     {
-        _randomTime = Utils.random.NextSingle(0f, 5f);
+        _randomTime = MathUtilities.random.NextSingle(0f, 5f);
     }
 
     public override void Update()
@@ -24,21 +24,28 @@ internal class EnemySpawner : GameComponent
 
         if (left > _randomTime)
         {
-            new Enemy(Utils.random.Next(35, 100))
+            var sp = MathUtilities.random.NextSingle(25, 250);
+            var pos = MathUtilities.RandomVector(Vector2.Zero, Window.Instance!.Bounds.Size.ToVector());
+            var rad = MathUtilities.random.NextSingle(5f, 15f);
+
+            if ((pos - Player.LocalPlayer.position).Length() > Player.LocalPlayer.radius + rad + sp * 5f)
             {
-                speed = Utils.random.NextSingle(25, 250),
-                position = Utils.RandomVector(Vector2.Zero, Window.Instance.Bounds.Size.ToVector()),
-                radius = Utils.random.NextSingle(5f, 15f),
-                direction = Utils.random.NextSingle(0, 360).ToDirection(),
-            };
+                new Enemy(MathUtilities.random.Next(35, 100))
+                {
+                    speed = sp,
+                    position = pos,
+                    radius = rad,
+                    direction = MathUtilities.random.NextSingle(0, 360).ToDirection(),
+                };
+            }
             _lastSpawnTime = now;
-            _randomTime = Utils.random.NextSingle(0f, 5f);
+            _randomTime = MathUtilities.random.NextSingle(0f, 5f);
         }
     }
 
     public override void Draw(Graphics graphics)
     {
-        graphics.DrawString(_enemyCount.ToString() + (_enemyCount > 1 ? " Enemies" : " Enemy"), Window.Instance.Font, Brushes.White, Window.Instance.Bounds.Width - 100, 10);
+        graphics.DrawString(_enemyCount.ToString() + (_enemyCount > 1 ? " Enemies" : " Enemy"), Window.Instance!.Font, Brushes.White, Window.Instance.Bounds.Width - 100, 10);
     }
 
     private int GetEnemyCount()
