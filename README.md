@@ -5,7 +5,8 @@ It is a single-player shooter created in C# with bots in two-dimensional space, 
 - 3 weapons (gun/shotgun/knife)
 - W.A.S.D movement
 - Left mouse button for attack
-- Health and running (soon)
+- Health
+- Running mode
 - Knife effect and perfect attack
 
 ## Weapon
