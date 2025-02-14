@@ -19,21 +19,22 @@ internal class Bullet : GameComponent
     {
         _position += _direction * _weapon.bulletSpeed * IResources.frameTime;
 
-        var rect = Window.Instance.Bounds;
-        if (_position.X < 0 || _position.Y < 0 ||
+        if (Window.Instance?.Bounds is Rectangle rect)
+        {
+            if (_position.X < 0 || _position.Y < 0 ||
             _position.X > rect.Width || _position.Y > rect.Height)
-            Destroy();
-        else
-            CheckHit();
+                Destroy();
+            else
+                CheckHit();
+        }
     }
 
     private void CheckHit()
     {
         foreach (var comp in IResources.gameComponents.ToList())
         {
-            if (comp != null && comp is Enemy)
+            if (comp is Enemy enemy)
             {
-                var enemy = comp as Enemy;
                 float distanceX = _position.X - enemy.position.X;
                 float distanceY = _position.Y - enemy.position.Y;
                 float radiusSum = enemy.radius + _weapon.bulletSize;
